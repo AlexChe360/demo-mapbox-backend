@@ -24,6 +24,5 @@ Each point has:
 ```bash
 cd backend
 npm install
-
-## Running the server
 npm run dev
+
