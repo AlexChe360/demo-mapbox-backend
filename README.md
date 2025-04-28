@@ -1,6 +1,6 @@
 # Backend - GraphQL Server for Map Points
 
-This is a simple GraphQL backend server that generates and serves 8000+ points (simulating 2G/3G/4G base stations) for a map application.
+This is a simple GraphQL backend server that generates and serves 8500+ points (simulating 2G/3G/4G base stations) for a map application.
 
 Each point has:
 - `id`: Unique identifier
