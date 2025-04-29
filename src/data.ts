@@ -1,12 +1,33 @@
+import { booleanPointInPolygon, point } from '@turf/turf';
+import { kazakhstanPolygon } from './kazakhstan';
+
 export function generatePoints(count: number) {
 	const types = ['2G', '3G', '4G'];
 	const statuses = ['working', 'broken'];
 
-	return Array.from({ length: count }, (_, i) => ({
-		id: i.toString(),
-		latitude: Math.random() * 180 - 90,
-		longitude: Math.random() * 360 - 180,
-		networkType: types[Math.floor(Math.random() * types.length)],
-		status: statuses[Math.random() < 0.9 ? 0 : 1], // 90% рабочие, 10% сломанные
-	}));
+	const minLat = 40.5;
+	const maxLat = 55.0;
+	const minLng = 46.5;
+	const maxLng = 87.0;
+
+	const points = [];
+
+	while (points.length < count) {
+		const latitude = Math.random() * (maxLat - minLat) + minLat;
+		const longitude = Math.random() * (maxLng - minLng) + minLng;
+
+		const pt = point([longitude, latitude]);
+
+		if (booleanPointInPolygon(pt, kazakhstanPolygon)) {
+			points.push({
+				id: points.length.toString(),
+				latitude,
+				longitude,
+				networkType: types[Math.floor(Math.random() * types.length)],
+				status: Math.random() < 0.9 ? 'working' : 'broken',
+			});
+		}
+	}
+
+	return points;
 }
